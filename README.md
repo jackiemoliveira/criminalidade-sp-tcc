@@ -153,9 +153,7 @@ Essa variável busca capturar efeitos demográficos associados à criminalidade.
 
 A taxa de homicídios é calculada por 100 mil habitantes.
 
-Além da taxa observada, também é aplicada uma **suavização Empirical Bayes** para reduzir a variabilidade em municípios com pequenas populações. 
-
-`bayes_estimator.py`
+Além da taxa observada, também é aplicada uma **suavização Empirical Bayes** para reduzir a variabilidade em municípios com pequenas populações: `bayes_estimator.py`
 ---
 
 ### 6. Transformações logarítmicas
