@@ -160,13 +160,12 @@ Além da taxa observada, também é aplicada uma **suavização Empirical Bayes*
 
 ### 6. Transformações logarítmicas
 
-Algumas variáveis são transformadas em escala log para reduzir assimetria:
+Algumas variáveis são transformadas em escala log para reduzir assimetria: `scenarios.py`
 
 - taxa de homicídios suavizada
 - PIB per capita
 - população municipal
 
-`scenarios.py`
 ---
 
 ### 7. Estatísticas descritivas
@@ -310,7 +309,6 @@ As principais bibliotecas utilizadas incluem:
 - shap
 - seaborn
 
-:contentReference[oaicite:13]{index=13}
 
 4. Executar a pipeline
 python main.py
