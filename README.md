@@ -24,6 +24,40 @@ A análise utiliza técnicas de suavização estatística, modelagem preditiva e
 
 ---
 
+## Base de dados
+
+A análise utiliza indicadores socioeconômicos municipais combinados com dados de homicídios para os municípios do estado de São Paulo.
+
+Principais variáveis utilizadas:
+
+- população residente
+- taxa de mortalidade infantil
+- taxa de urbanização
+- taxa de desemprego
+- PIB per capita
+- índice de Gini
+- proporção de homens jovens na população
+
+Dados brutos
+     ↓
+Tratamento de dados
+     ↓
+Taxa de homicídios + Empirical Bayes
+     ↓
+Análise exploratória
+     ↓
+Diagnósticos (VIF, Cook's distance)
+     ↓
+Modelagem
+     ↓
+Avaliação
+     ↓
+Interpretabilidade (SHAP)
+     ↓
+Análise espacial (Moran's I)
+
+---
+
 # Estrutura do Projeto
 project
 │
@@ -69,7 +103,7 @@ As principais etapas incluem:
 
 Os dados são carregados a partir de um dataset contendo indicadores socioeconômicos e registros de homicídios municipais.
 
-A leitura é realizada com tratamento automático de variáveis numéricas. :contentReference[oaicite:0]{index=0}
+A leitura é realizada com tratamento automático de variáveis numéricas. 
 
 ---
 
@@ -87,7 +121,7 @@ Esse relatório é salvo em:
 outputs/tables/data_quality_report.xlsx
 
 
-A função responsável está implementada em `data_quality.py`. :contentReference[oaicite:1]{index=1}
+A função responsável está implementada em `data_quality.py`. 
 
 ---
 
@@ -99,9 +133,9 @@ Algumas regras de tratamento são aplicadas:
 - mortalidade infantil é imputada pela mediana
 - valores negativos de desemprego são corrigidos para zero
 
-Essas etapas são executadas em `data_processing.py`. :contentReference[oaicite:2]{index=2}
+Essas etapas são executadas em `data_processing.py`. 
 
-Também é gerado um relatório comparando os dados antes e depois do tratamento. :contentReference[oaicite:3]{index=3}
+Também é gerado um relatório comparando os dados antes e depois do tratamento. 
 
 ---
 
@@ -119,8 +153,9 @@ Essa variável busca capturar efeitos demográficos associados à criminalidade.
 
 A taxa de homicídios é calculada por 100 mil habitantes.
 
-Além da taxa observada, também é aplicada uma **suavização Empirical Bayes** para reduzir a variabilidade em municípios com pequenas populações. :contentReference[oaicite:4]{index=4}
+Além da taxa observada, também é aplicada uma **suavização Empirical Bayes** para reduzir a variabilidade em municípios com pequenas populações. 
 
+`bayes_estimator.py`
 ---
 
 ### 6. Transformações logarítmicas
@@ -131,6 +166,7 @@ Algumas variáveis são transformadas em escala log para reduzir assimetria:
 - PIB per capita
 - população municipal
 
+`scenarios.py`
 ---
 
 ### 7. Estatísticas descritivas
@@ -142,7 +178,7 @@ Algumas variáveis são transformadas em escala log para reduzir assimetria:
 - mínimo
 - máximo
 
-para as variáveis analisadas. :contentReference[oaicite:5]{index=5}
+para as variáveis analisadas: `exploratory.py`
 
 ---
 
@@ -169,11 +205,11 @@ Incluem:
 
 **Cook's Distance**
 
-Identifica observações influentes na regressão. :contentReference[oaicite:6]{index=6}
+Identifica observações influentes na regressão: `influence.py`
 
 **VIF (Variance Inflation Factor)**
 
-Avalia multicolinearidade entre variáveis explicativas. :contentReference[oaicite:7]{index=7}
+Avalia multicolinearidade entre variáveis explicativas: `diagnostics.py`
 
 ---
 
@@ -185,14 +221,14 @@ Três modelos são estimados:
 - Random Forest
 - XGBoost
 
-A divisão entre treino e teste é realizada utilizando validação hold-out. :contentReference[oaicite:8]{index=8}
+A divisão entre treino e teste é realizada utilizando validação hold-out. 
 
 Os modelos são avaliados utilizando:
 
 - R²
 - RMSE
 
-Os resultados são consolidados automaticamente em tabelas comparativas. :contentReference[oaicite:9]{index=9}
+Os resultados são consolidados automaticamente em tabelas comparativas. 
 
 ---
 
@@ -200,19 +236,19 @@ Os resultados são consolidados automaticamente em tabelas comparativas. :conten
 
 Para o modelo baseado em árvores é realizada análise de interpretabilidade utilizando **SHAP (SHapley Additive Explanations)**.
 
-Essa técnica permite avaliar o impacto de cada variável nas previsões do modelo. :contentReference[oaicite:10]{index=10}
+Essa técnica permite avaliar o impacto de cada variável nas previsões do modelo. 
 
 ---
 
 ### 12. Análise de Componentes Principais (PCA)
 
-A PCA é utilizada para explorar padrões estruturais entre os indicadores socioeconômicos municipais. :contentReference[oaicite:11]{index=11}
+A PCA é utilizada para explorar padrões estruturais entre os indicadores socioeconômicos municipais. 
 
 ---
 
 ### 13. Análise espacial
 
-A pipeline também realiza análise espacial utilizando o **Índice de Moran**, que mede autocorrelação espacial das taxas de homicídio. :contentReference[oaicite:12]{index=12}
+A pipeline também realiza análise espacial utilizando o **Índice de Moran**, que mede autocorrelação espacial das taxas de homicídio. 
 
 Essa análise permite verificar se municípios vizinhos apresentam padrões semelhantes de criminalidade.
 
@@ -249,15 +285,17 @@ Exemplos:
 
 ---
 
-# Como Executar a Pipeline
+## Como reproduzir o estudo
 
-### 1. Clonar o repositório
-git clone https://github.com/seu_usuario/seu_repositorio.git
+1. Clonar o repositório
 
+git clone https://github.com/jackiemoliveira/criminalidade-sp-tcc.git
 
----
+2. Criar ambiente virtual
 
-### 2. Instalar dependências
+python -m venv venv
+
+3. Instalar dependências
 pip install -r requirements.txt
 
 
@@ -274,9 +312,7 @@ As principais bibliotecas utilizadas incluem:
 
 :contentReference[oaicite:13]{index=13}
 
----
-
-### 3. Executar a pipeline
+4. Executar a pipeline
 python main.py
 
 
@@ -316,5 +352,5 @@ A pipeline segue um fluxo estruturado de análise de dados:
 ---
 
 # Autor
-Jaqueline de Moura
-Projeto desenvolvido para estudo sobre determinantes socioeconômicos da criminalidade municipal no estado de São Paulo.
+- Jaqueline de Moura
+- Projeto desenvolvido para estudo sobre determinantes socioeconômicos da criminalidade municipal no estado de São Paulo.
